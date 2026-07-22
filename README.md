@@ -27,6 +27,30 @@ The dashboard empowers non-technical marketing stakeholders to dynamically filte
 └── README.md
 ```
 
+---
+
+## 🔍 Codebase Walkthrough: What Happens in Each File
+
+### 1. The Machine Learning Engine
+**`generate_churn_data.py`**
+- **Purpose:** The brain of the operation. It handles data processing, model training, and AI explainability.
+- **What it does:** 
+  1. **Data Ingestion & Cleaning:** Downloads the dataset and handles missing values.
+  2. **Model Training:** Trains a `RandomForestClassifier` on the historical data.
+  3. **Prediction:** Calculates the `ChurnProbability` for every customer.
+  4. **SHAP Integration:** Runs the model through a `TreeExplainer` to get the SHAP values. It extracts the strongest driving factor for churn for each customer as `Top_Risk_Factor` and `Top_Risk_Factor_Impact`.
+  5. **Export:** Merges the original data, probabilities, and SHAP insights into `telco_churn_predictions.csv`.
+
+### 2. The Business Intelligence Layer
+**`Churn_Dashboard.pbix`**
+- **Purpose:** The interactive visual interface for stakeholders.
+- **What it does:** 
+  - **Data Ingestion:** Loads the structured `telco_churn_predictions.csv`.
+  - **What-If Scenarios:** Uses DAX (Data Analysis Expressions) to create interactive sliders, calculating ROI based on Risk Thresholds dynamically.
+  - **Drill-Through Pages:** Utilizes Power BI's drill-through functionality, allowing a seamless transition from a macro-view of the customer base to a single customer's AI-generated risk profile.
+
+---
+
 ## ⚙️ How to Run Locally
 
 ### 1. Generate the ML Data
